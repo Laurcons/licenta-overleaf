@@ -1,0 +1,84 @@
+%\documentclass[12pt]{scrreprt}
+\documentclass[12pt]{report} 
+
+% language may be romanian or english (default is english)
+% type may be bachelor or master (default is bachelor)
+\usepackage[language=english, type=bachelor]{style}
+
+%\geometry{a4paper,top=2.5cm,left=3cm,right=2.5cm,bottom=2.5cm}
+%in style
+%controlling the appearance of your headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.2pt}
+
+\begin{document}
+
+\specialization{COMPUTER SCIENCE}	
+\title{Providing real-time information on mobile devices, using Progressive Web Apps}
+\author{Pricop Laurențiu}
+\supervisor{Lect. Dr. Dana Lupșa}
+				
+\maketitle
+
+\cleardoublepage
+SHORT DESCRIPTION (for ELL laboratory only, will be removed)
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+Historically, providing an interface for the user on a mobile phone has presented itself as a choice between two options: a web application, or a native mobile application. However, numerous frameworks have risen up that attempt to bridge the gap and provide the benefits of both worlds. A study by Biørn-Hansen et. al. [1] attempts to compare different technologies for creating cross-platform mobile applications and provides arguments for why Progressive Web Apps (PWAs) are a viable solution for such cross-platform development.
+
+The Romanian national passenger railway operator, CFR Călători SA, provides two methods of viewing real-time information about trains: a website [2] and a mobile app [3], which sit at the opposite poles of the mobile application "spectrum". There is much to gain from combining these two applications into a singular PWA architecture.
+
+In this thesis, in light of lacking literature on the topic of PWAs [4], I attempt to showcase a number of features that PWAs are capable of, that could not be possible in a single application based on either a website or a native mobile app. These features are presented in an application that provides real-time location information about where a passenger is, in relation to their train itinerary, and enables obtaining itinerary information from sources other than manual input, such as ticket QR codes or Optical Character Recognition.
+
+[1]: Biørn-Hansen A., Majchrzak T. and Grønli T. (2017). Progressive Web Apps: The Possible Web-native Unifier for Mobile Development
+
+[2]: \url{https://www.cfrcalatori.ro/cum-cumpar-online/#1517325197560-cf0f95de-6186}
+
+[3]: \url{https://www.cfrcalatori.ro/comunicate/instaleaza-aplicatia-mobila-cfr-calatori-mersul-trenurilor-si-bilete-online-si-poti-cumpara-bilete-de-tren-direct-de-pe-telefon/}
+
+[4]: Mole, Patrick V. (2020). Progressive Web Apps: A Novel Way for Cross-Platform Development
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+\pagenumbering{roman} 
+
+\cleardoublepage
+ABSTRACT
+\vspace{0.5cm}	
+\hrule
+\vspace{0.5cm}	
+%\cleardoublepage
+
+Abstract: un rezumat în limba engleză cu prezentarea, pe scurt, a conținutului pe capitole, punând accent pe contribuțiile proprii și originalitate
+
+
+
+\tableofcontents
+
+
+\newpage
+\pagenumbering{arabic}
+
+\input{chapters/chapter1_introduction}
+%\addcontentsline{toc}{chapter}{Introducere}
+% \addcontentsline{toc}{chapter}{Introduction}
+
+\input{chapters/chapter2}
+\input{chapters/chapter3}
+\input{chapters/chapter4}
+
+\input{chapters/chapter6_conclusions}
+%\addcontentsline{toc}{chapter}{Concluzii}
+%\addcontentsline{toc}{chapter}{Conclusions}
+
+\bibliography{references}
+
+\end{document}
