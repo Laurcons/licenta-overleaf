@@ -4,7 +4,7 @@
 
 \section{Context}
 
-With the rise of mobile devices, users are now able to access many different services directly from their phones. Companies and government agencies are constantly digitising themselves, and offering their services on mobile devices proves to be the easiest method of reaching their users.
+With the rise of mobile devices, users are now able to access many different services directly from their phones. Companies and government agencies are constantly digitizing themselves, and offering their services on mobile devices proves to be the easiest method of reaching their users.
 
 However, methods of delivering applications on mobile phones differ greatly, from phone vendor to another, but also within vendors. Each phone manufacturer provides their own custom way of creating applications for their operating system (Android, iOS). A large-scale study by Haipeng Cai et. al. shows \cite{HaipengAndroidIncomp} that even within Android-based phones exist different flavors of operating systems (by Google, Huawei, Samsung) that are pose incompatibilities to apps, in subtle ways.
 
@@ -16,7 +16,7 @@ The PWA architecture is described in Alex Russell's words using the following at
 \begin{itemize}
     \item \textbf{Responsive:} to fit any form factor;
     \item \textbf{Connectivity independent:} progressively-enhanced with Service Workers to let them work offline;
-    \item \textbf{App-like-interactions:} adopt a shell + content application model to create app-like navigations and interactions;
+    \item \textbf{App-like-interactions:} adopt a shell + content application model to create app-like navigation and interactions;
     \item \textbf{Fresh:} transparently always up-to-date thanks to the Service Worker update process;
     \item \textbf{Safe:} served via TLS (a Service Worker requirement) to prevent snooping;
     \item \textbf{Discoverable:} are identifiable as "applications" thanks to W3C manifests and Service Worker registration scope allowing search engines to find them;
@@ -29,11 +29,11 @@ The PWA architecture is described in Alex Russell's words using the following at
 
 In this thesis, I will explain the process of creating a Progressive Web Application that can take the role of a train trip companion within Romania's national railway network.
 
-The application posesses all qualities of a PWA, and shows that it can function with minimal internet connection, an issue prevalent in the routes Romania national trains take \cite{CFRInternetIC}, making use of some native capabilities of the mobile device, such as GPS positioning.
+The application possesses all qualities of a PWA, and shows that it can function with minimal internet connection, an issue prevalent in the routes Romania national trains take \cite{CFRInternetIC}, making use of some native capabilities of the mobile device, such as GPS positioning.
 
 The application is able to find the user's location and, using data from their ticket, it displays itinerary information, including what the next station is and estimated arrival time. Ticket data can be obtained either by manual entry, or by scanning the QR code present on the ticket using the phone's camera.
 
-Another showcase of PWA cabalities comes in the form of social login options for the users: they are able to log in using their Google or Apple accounts.
+Another showcase of PWA capabilities comes in the form of social login options for the users: they are able to log in using their Google or Apple accounts.
 
 Overall, this thesis attempts to be a showcase of modern Progressive Web App capabilities, all while applying these capabilities to a real problem in the real world.
 
@@ -41,10 +41,10 @@ Overall, this thesis attempts to be a showcase of modern Progressive Web App cap
 
 By having a quick look across Google results for "pwa showcase", one can notice that there exist a number of websites whose sole role is to promote the PWA architecture by showing usage examples of PWA capabilities.
 
-The showcase website created by Joseph Genchik \cite{GenchikPWAShowcase} presents a couple of uses of some phone sensors like Bluetooth, NFC, location, orientation, while also showcasing Web APIs like speech recognition, the Navigator object, web share, websockets, and third-party integrations like Auth0 login.
+The showcase website created by Joseph Genchik \cite{GenchikPWAShowcase} presents a couple of uses of some phone sensors like Bluetooth, NFC, location, orientation, while also showcasing Web APIs like speech recognition, the Navigator object, web share, WebSockets, and third-party integrations like Auth0 login.
 
 Danny Moerkerke created a website entitled "What PWA Can Do Today" \cite{MoerkerkePWAShowcase} which attempts to be a more feature-complete showcase, making use of diverse Web APIs like shape recognition, barcode detection, protocol handling, notifications API, file system access, storage, background sync, background fetch, payment requests, network information, and speech recognition.
 
-The website at \verb|progressivewebapproom.com| \cite{PWARoom} contains a showcase of a variety of websites and service providers which provide their sevices using a PWA. Among a multitude of games, notable names include official apps from Tinder, Twitter (now X) and Ride App. It is obvious that these apps are installable due to the fact that the browser gives you the option (sometimes through a pop-up) to install them after first visit.
+The website at \verb|progressivewebapproom.com| \cite{PWARoom} contains a showcase of a variety of websites and service providers which provide their services using a PWA. Among a multitude of games, notable names include official apps from Tinder, Twitter (now X) and Ride App. It is obvious that these apps are installable due to the fact that the browser gives you the option (sometimes through a pop-up) to install them after first visit.
 
 From looking on the Internet, it is apparent that the PWA architecture is still a novelty among web developers, and used by companies who want to gain some sort of competitive advantage in the user space, by offering varied methods of using their services. In addition, a literature review in the domain of PWAs done by Mole Patrick V. in 2020 \cite{MoleLitRev} suggests that not enough literature exists on the topic of PWAs, and more research is needed around the topic.
