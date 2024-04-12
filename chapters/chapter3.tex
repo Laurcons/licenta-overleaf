@@ -1,1 +1,120 @@
 \chapter{A real-time solution for live traffic information}
+
+\section{An problem of Romania's national trains}
+The Romanian national railway operator, CFR S.A. is tasked with the upkeep of 20 thousand kilometers of un-electrified and electrified railway spread out over 9 main lines \cite{CFROrdinMagistrale} \cite{WallstreetRoReorganizareSNCFR}, stretching all across Romania.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{./figures/ch3_romania-feroviara.png}
+    \caption{Map of Romania's railway network. Map by Aero Avalon, shared under CC-BY 4.0 \cite{WikipediaRomaniaFeroviara}.}
+    \label{FigRomaniaFeroviara}
+\end{figure}
+
+The passenger subsidiary, CFR Călători, is the biggest railway operator that makes use of these lines. However, rolling stock is outdated and most train cars lack modern features like driver-controlled doors. A notable absence though is that of live travel information offered inside the train to the passengers. Examples of such information displays are given in figures \ref{FigMAVInterior}, \ref{FigCTPInterior}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{./figures/ch3_mav-interior.png}
+    \caption{Interior of a train owned by MÁV-Start, the Hungarian national passenger operator \cite{PestiHirlapMAVInterior}. The LCD display can be seen at the top, providing information about the next stations, times and delays. Stations and times can be pre-programmed into the train on departure, but delays require live integration with a central service.}
+    \label{FigMAVInterior}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{./figures/ch3_cluj-troleu-interior.png}
+    \caption{Interior of a bus owned by CTP S.A., the public transport company of Cluj Napoca, Romania \cite{ClujuTroleuInterior}. Information about the line and its stops is pre-programmed on departure, and no live information (such as delays) is provided. It is worth mentioning, although not relevant for this thesis, that all buses are tracked using GPS and various mobile apps that integrate with CTP's services can make use of location information, including stations (using dot-matrix displays).}
+    \label{FigCTPInterior}
+\end{figure}
+
+Given that retrofitting all rolling stock with displays connected to the Internet is a challenging task, CFR Călători has attempted digitization in various other ways.
+
+In 2016, the company launched IRIS, a web application that provided traffic information about the company's trains. It also offered information about delays \cite{StiriDeClujLansareCFRIris}. In 2018, IRIS got discontinued in favor of a newer platform, written in ASP.NET, which offers information about all railway operators in Romania.
+
+In 2021, the company launched a mobile application with all the capabilities that the website has, making it more convenient than ever before to view traffic information \cite{MobilissimoCFRLansareMobil}.
+
+These solutions, however, are insufficient in answering the question of "Where am I?" that a passenger might have. The most significant issue is that they all require Internet, the lack of which is an issue prevalent across Romanian trains \cite{CFRInternetIC}.
+
+Moreover, CFR does not track the location of their trains using GPS transponders or any similar technology, but rather using personnel that are responsible with coordinating the trains passing through each station. This brings a number of issues:
+
+\begin{itemize}
+    \item \textbf{Data is not real-time.} A train passing through a station is only recorded when the station personnel manually records that train as passed, in the company's internal services.
+    \item \textbf{Data might be missing.} Some personnel might not take the time to enter delay data for each passing train.
+    \item \textbf{Some stations are not tracked.} Some train stations are big enough to be serviced by regional trains, but not big enough to warrant any personnel responsible with train movement.
+    \item \textbf{Data might be false.} Station personnel can enter any delay data they want, having the possibility of hiding delays.
+\end{itemize}
+
+\section{A PWA solution: principles}
+
+The basic idea of this thesis is to merge the mobile app experience and the website experience offered by CFR into a single, PWA solution, that will then be extended to offer live traffic information using phone capabilities such as the camera, location while combining it with map data by OpenStreetMap.
+
+The application is centered about these core principles:
+
+\begin{itemize}
+    \item \textbf{Offline:} it will work at maximum capability while offline.
+    \item \textbf{Live information:} the screen will update as soon as the app gets new traffic or position information.
+    \item \textbf{Information at a glance:} all information needed to answer the questions of "Where am I?", "How long until next stop?", "How long until my stop?" is always displayed on-screen.
+    \item \textbf{Minimal configuration:} integrate with existing CFR services and ticketing systems as seamlessly as possible.
+    \item \textbf{Avoid "yet another account and password":} allow the user to save their preferences locally, or use social login to sync them. Do not ask the user to remember another password!
+\end{itemize}
+
+\section{A PWA solution: requirements}
+
+Given the set of core principles outlined in the previous section, a list of user stories can be compiled. Features that are \textbf{not} necessary for a Minimum Viable Product (MVP) are marked as such and are de-prioritized.
+
+A minimum viable product, in our case, comprises the set of features needed to fullfil our core principles.
+
+I used the shorthand "AaU" to mean "As a User".
+% \begin{table}[h]
+% \begin{center}
+\begin{tabularx}
+    {\linewidth}{
+        | >{\hsize=.15\hsize}X
+        | >{\hsize=.65\hsize}X
+        | >{\hsize=.2\hsize}X |
+    }
+    \hline
+    Category / Story \# & User story                                                                                                           & Scope        \\
+    \hline\hline
+    \multicolumn{3}{|X|}{1. Live Location}                                                                                                                    \\
+    \hline 1.1.         & AaU, I want to see live where I am, what's the next station, and when I get there                                    & MVP          \\
+    \hline 1.2.         & AaU, I want to manually input my train number so that the app knows                                                  & MVP          \\
+    \hline 1.3.         & AaU, I want to be able to make a picture of my ticket so that the app can figure out my train number                 & Nice to have \\
+    \hline 1.4.         & AaU, I want to be able to scan the ticket's QR code so that the app can figure out my train number                   & Nice to have \\
+    \hline 1.5.         & AaU, I want to send a screenshot of an online ticket (or the CFR PDF) so that the app can figure out my train number & Nice to have \\
+    \hline 1.6.         & AaU, I want to see, live, what delay my train has                                                                    & MVP          \\
+    \hline 1.7.         & AaU, I want to see, live, what the next and last stations are                                                        & MVP          \\
+    \hline 1.8.         & AaU, I want to see intermediary stations where the train doesn't stop                                                & Nice to have \\
+    \hline 1.9.         & AaU, I want to see, on a map, where I am                                                                             & Nice to have \\
+    \hline 1.10.        & AaU, I want to see what station I get off at, and see when I get there                                               & Nice to have \\
+    \hline
+    \hline
+    \multicolumn{3}{|X|}{2. Schedules Information}                                                                                                            \\
+    \hline 2.1.         & AaU, I want to see, for a station, what trains arrive there, and at what times                                       & MVP          \\
+    \hline 2.2.         & AaU, I want to see, for my train, all stations it has                                                                & MVP          \\
+    \hline 2.3.         & AaU, I want to see, for my train, all intermediary stations that it does NOT stop at                                 & Nice to have \\
+    \hline
+    \hline
+    \multicolumn{3}{|X|}{3. User profile and Authentication}                                                                                                  \\
+    \hline 3.1.         & AaU, I want to be able to use the app anonymously                                                                    & MVP          \\
+    \hline 3.2.         & AaU, if I create an account, I want to be able to merge my data into the account                                     & Nice to have \\
+    \hline 3.3.         & AaU, I want to be able to register/login using my Apple account                                                      & MVP          \\
+    \hline 3.4.         & AaU, I want to be able to register/login using my Google account                                                     & MVP          \\
+    \hline 3.5.         & AaU, I want to be able to optionally set up 2FA using an Authenticator app                                           & Nice to have \\
+    \hline 3.6.         & AaU, if I have 2FA on, I want to be able to login using a recovery code                                              & Nice to have \\
+    \hline 3.7.         & AaU, I want to add a train trip to my history, manually                                                              & MVP          \\
+    \hline 3.8.         & AaU, I want to have any ticket I scan added automatically to my history                                              & Nice to have \\
+    \hline 3.9.         & AaU, I want to see the history of my train trips                                                                     & MVP          \\
+    \hline 3.10.        & AaU, I want to see a digest of my history: most visited station, most traveled-on route, etc                         & MVP          \\
+    \hline
+    \hline
+    \multicolumn{3}{|X|}{4. Internationalisation}                                                                                                             \\
+    \hline 4.1.         & AaU, I want to be able to select a language I prefer to see the app in (EN / RO)                                     & MVP          \\
+    \hline
+    \hline
+    \multicolumn{3}{|X|}{5. Appearance}                                                                                                                       \\
+    \hline 5.1.         & AaU, I want to be able to select a dark or light theme                                                               & Nice to have \\
+    \hline
+\end{tabularx}
+%     \end{center}
+%     \caption{User stories for our train trip helper app}
+%     \label{TabelSolutii}
+% \end{table}

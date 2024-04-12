@@ -8,7 +8,7 @@ Plotting market shares of desktop, mobile and tablet devices against one another
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{./figures/ch1_desktop-vs-mobile.png}
+    \includegraphics[width=\textwidth]{./figures/ch2_desktop-vs-mobile.png}
     \caption{Market shares of desktop, mobile and tablet devices, from January 2009 to January 2024 \cite{StatCountDMT}. Starting August 1st 2012, the chart counts tablets as a separate metric.}
     \label{FigStatCounterDMT}
 \end{figure}
@@ -27,7 +27,7 @@ These flashy, almost magical machines were starting to be capable of doing vario
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{./figures/historical_pc_usage.png}
+    \includegraphics[width=\textwidth]{./figures/ch2_historical_pc_usage.png}
     \caption{Units Shipped per year for various desktop PCs and mobile devices, from 1977 to 2021 \cite{TGPCHis}.}
     \label{FigHistoricalPC}
 \end{figure}
@@ -36,14 +36,30 @@ This direct lineage between the personal computer and pre-1970 mainframes is app
 
 In particular, the Personal Computer (PC) developed by IBM has seen the longest lifetime of a single lineage of computers (Figure \ref{FigHistoricalPC}), being traceable all the way from 1981 to today. This shows that the evolution of the IBM PC occurred in incremental steps, and to avoid having software vendors be forced to upgrade their software upon release of every version, it is understandable that IBM offered a degree of backwards compatibility.
 
-As a result, design decisions that made sense in the 1980s started to be less useful.
-
-A notable example of such design decisions can be found in modern Windows operating systems. The Microsoft documentation \cite{MSDNFolderNaming} has a clause that specifies a number of disallowed directory and file names, the likes of "CON", "PRN", "NUL", "AUX", and others, in addition to any combination of these names with any extension. This is very likely a result of the desire to keep backwards compatibility with old MS-DOS systems, that Windows can be directly traced to, which used these names as aliases for device drivers \cite{HusseinDeviceDrivers}.
+As a result, design decisions that made sense in the 1980s started to be less useful. A notable example of such design decisions can be found in modern Windows operating systems. The Microsoft documentation \cite{MSDNFolderNaming} has a clause that specifies a number of disallowed directory and file names, the likes of "CON", "PRN", "NUL", "AUX", and others, in addition to any combination of these names with any extension. This is very likely a result of the desire to keep backwards compatibility with old MS-DOS systems, that Windows can be directly traced to, which used these names as aliases for device drivers \cite{HusseinDeviceDrivers}.
 
 \subsection{Evolution of mobile devices}
 In comparison, the evolution of mobile devices and smartphones is very distinct and contained in a much shorter period of time.
 
+The first device that was described as "the first time someone created a computer into the shape of a phone" is credited to be the IBM Simon, released around 1992. Boasting a touch screen and being portable, it had features such as a calculator and email. It has been described, retroactively, as "[being] the first smartphone. Twenty years ago, it envisioned our app-happy mobile lives, squeezing the features of a cell phone, pager, fax machine, and computer into an 18-ounce black brick"
+\cite{SagerIraHistoryOfPhones}.
+
+The year 1992 is very recent, compared to when the first computers started to become mainstream. This allowed phone manufacturers and OS vendors to learn from the mistakes done by personal computers, or optimize certain user experience facets.
+
+An important step in the evolution of mobile devices is widely regarded as being the first iPhone. The hype Apple created about their new and flashy smartphone, culminating in around 11.000 print articles and 69 million hits on Google, seems to have been justified, and the phone was revolutionary, although somewhat flawed \cite{NYTAppleIPhoneRelease}. The iPhone defined a new era of smartphones, and many phone manufacturers have followed in the path that Apple laid out.
+
+One of the core ideals of the iPhone is the ease of use. People that are non-technical find the iPhone accessible, and the way it seamlessly integrates with other Apple (sadly, only Apple) products proves that technology does not necessarily have to be hard to use \cite{SlashGearIPhoneOverAndroid}.
+
+This trend manifests itself across the entire range of available mobile devices versus personal computers. Mobile phones are more widespread and are generally easier to use, having more friendly user interfaces and abstracting away hard technical details as much as possible.
+
 \section{Native applications}
+
+Mobile devices present ways of installing additional programs called "applications" that can extend the functionality of the device. Applications have proven to be the de-facto standard for implementing mobile functionality, and an ever-increasing number of companies offer their services through the apps that they constantly ask consumers to install.
+
+From an architectural standpoint, these applications are strongly tied to the operating system architecture, and are therefore not portable.
+
+Having said that, an attempt at portability and standardization across mobile devices can be found within the Android Open Source Project. An initiative by Google, the project offers a full mobile operating system under an open-source license, thus allowing any phone maker across the world to use it as a starting point for their own operating system.
+
 
 \section{Hybrid (cross-platform interpreted) applications}
 
