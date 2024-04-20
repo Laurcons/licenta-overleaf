@@ -1,1 +1,73 @@
 \chapter{Application architecture}
+
+\section{Architecture considerations}
+As a summary of Chapter 2, we can provide a short comparison between possible architectures:
+
+\begin{enumerate}
+    \item Native application
+          \begin{itemize}
+              \item Requires distribution on multiple marketplaces (Google Play Store, Apple App Store).
+              \item Requires multiple builds (for each supported platform: iOS, Android).
+              \item Installation necessary.
+              \item Internet not required for base functionality.
+          \end{itemize}
+    \item Web application
+          \begin{itemize}
+              \item Distribution is straightforward (accessing a link is sufficient).
+              \item No installation necessary.
+              \item Cross-platform by default.
+              \item Internet required for base functionality.
+          \end{itemize}
+    \item Progressive Web Application
+          \begin{itemize}
+              \item Distribution is straightforward (accessing a link is sufficient).
+              \item No installation necessary, although possible.
+              \item Internet not required for base functionality (even if not installed).
+          \end{itemize}
+\end{enumerate}
+
+Remarks relative to our product requirements (section \ref{sec:Requirements}):
+\begin{enumerate}
+    \item Our train companion app intends to be easy to use and access. Asking users to download and install a native application goes against this intention.
+    \item Our train companion app must work without Internet. Asking users to access a website every time they want to use our application goes against this requirement.
+\end{enumerate}
+
+The choice of a Progressive Web Application architecture is therefore justified, since this resolves a series of drawbacks of both other possible architectures.
+
+\section{Entities}
+By parsing the requirements (section \ref{sec:Requirements}), we can identify a series of entities that the user must interact with:
+
+\begin{enumerate}
+    \item Train trip
+          \begin{itemize}
+              \item A train trip represents a trip defined by a train ticket.
+              \item The trip cannot have transfer stops.
+              \item A trip has the following properties: train number, departure station, destination station, date, owner (user account). Additional trip information can be deduced from the traffic data (stops, timetable, delays).
+          \end{itemize}
+    \item User account
+          \begin{itemize}
+              \item A user account is used to represent a single person using the application.
+              \item An account stores the user's preferences.
+              \item An account contains a list of social ids, one id for each social login provi\-der (Google, Apple).
+          \end{itemize}
+\end{enumerate}
+
+\section{Backend services}
+The functionalities related to account management and traffic data updates require a backend. This backend needs to be nothing more than a frontend to a database that can store user information (eg. train trip history) and traffic data.
+
+\subsection{Sourcing the traffic data}
+CFR Călători submits to the Romanian Government the national train timetables yearly. This data is public, distributed under the \textit{open data} international initiative by the government \cite{DataGovRoDespre}, and is available for use under a variant of the Open Government License \cite{DataGovRoLicense}.
+
+This static data is submitted ahead of every timetabled year, and over the course of a year changes can happen that bring the static data out of date.
+
+To mitigate this issue, the Mersul Trenurilor website provided by CFR can be used \cite{StiriDeClujLansareCFRIris}. Although this data is not shared under an open license, the site's terms and conditions only prohibit commercial use of the information provided, and allow non-commercial use with the notice that the company cannot be held liable for incorrect information.
+
+These two sources of traffic data can be combined in the following manner:
+\begin{itemize}
+    \item The data.gov.ro dataset can be used yearly to fill in data for all trains.
+    \item The Mersul Trenurilor live data can be used to manually adjust the yearly dataset in case of unforeseen events, on a case-by-case basis.
+\end{itemize}
+
+The base dataset is provided in a non-standard XML format. Interfacing with this data requires writing a custom parser that can read the 12 Megabyte XML file. Thankfully, this work has already been done by train enthusiast Vasile Coțovanu, with the wonderful Github handle of \textit{vasile}. His work consists of a Ruby parser than can read the non-standard XML and convert it into GTFS information, a format that is easily parsable (comprised of CSV-like text files) and has widespread support. This parser is shared under the MIT license \cite{VasileRubyExporter}.
+
+This GTFS format can then further be parsed and managed using a database management system, to enable amending this data over the course of a year.

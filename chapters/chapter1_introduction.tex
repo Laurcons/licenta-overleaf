@@ -37,6 +37,42 @@ Another showcase of PWA capabilities comes in the form of social login options f
 
 Overall, this thesis attempts to be a showcase of modern Progressive Web App capabilities, all while applying these capabilities to a real problem in the real world.
 
+\section{The real-world problem}
+The Romanian national railway operator, CFR S.A. is tasked with the upkeep of 20 thousand kilometers of un-electrified and electrified railway spread out over 9 main lines \cite{CFROrdinMagistrale} \cite{WallstreetRoReorganizareSNCFR}, stretching all across Romania.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figures/ch3_romania-feroviara.png}
+    \caption{Map of Romania's railway network. Map by Aero Avalon, shared under CC-BY 4.0 \cite{WikipediaRomaniaFeroviara}.}
+    \label{FigRomaniaFeroviara}
+\end{figure}
+
+The passenger subsidiary, CFR Călători, is the biggest railway operator that makes use of these lines. However, rolling stock is outdated and most train cars lack modern features like driver-controlled doors. A notable absence though is that of live travel information offered inside the train to the passengers. Examples of such information displays are given in figures \ref{FigMAVInterior}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figures/ch1_mav-interior.png}
+    \caption{Interior of a train owned by MÁV-Start, the Hungarian national passenger operator \cite{PestiHirlapMAVInterior}. The LCD display can be seen at the top, providing information about the next stations, times and delays. Stations and times can be pre-programmed into the train on departure, but delays require live integration with a central service.}
+    \label{FigMAVInterior}
+\end{figure}
+
+Given that retrofitting all rolling stock with displays connected to the Internet is a challenging task, CFR Călători has attempted digitization in various other ways.
+
+In 2016, the company launched IRIS, a web application that provided traffic information about the company's trains. It also offered information about delays \cite{StiriDeClujLansareCFRIris}. In 2018, IRIS got discontinued in favor of a newer platform, written in ASP.NET, which offers information about all railway operators in Romania.
+
+In 2021, the company launched a mobile application with all the capabilities that the website has, making it more convenient than ever before to view traffic information \cite{MobilissimoCFRLansareMobil}.
+
+These solutions, however, are insufficient in answering the question of "Where am I?" that a passenger might have. The most significant issue is that they all require Internet, the lack of which is an issue prevalent across Romanian trains \cite{CFRInternetIC}.
+
+Moreover, CFR does not track the location of their trains using GPS transponders or any similar technology, but rather using personnel that are responsible with coordinating the trains passing through each station. This brings a number of issues:
+
+\begin{itemize}
+    \item \textbf{Data is not real-time.} A train passing through a station is only recorded when the station personnel manually records that train as passed, in the company's internal services.
+    \item \textbf{Data might be missing.} Some personnel might not take the time to enter delay data for each passing train.
+    \item \textbf{Some stations are not tracked.} Some train stations are big enough to be serviced by regional trains, but not big enough to warrant any personnel responsible with train movement.
+    \item \textbf{Data might be false.} Station personnel can enter any delay data they want, having the possibility of hiding delays.
+\end{itemize}
+
 \section{Related work}
 
 By having a quick look across Google results for "pwa showcase", one can notice that there exist a number of websites whose sole role is to promote the PWA architecture by showing usage examples of PWA capabilities.
