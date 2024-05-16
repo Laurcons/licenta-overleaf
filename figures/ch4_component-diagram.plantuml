@@ -1,0 +1,28 @@
+@startuml
+
+interface HTTP
+
+package Browser {
+  component Frontend as "Frontend App"
+  component FrontDB as "Local Database"
+
+  interface FrontendJS as "JavaScript"
+
+  FrontendJS - Frontend  
+  FrontDB - FrontendJS
+}
+HTTP - Frontend
+
+package "Web Server" {
+  component Backend
+  component BackendDB as "Backend Database"
+
+  interface BackendTCP as "TCP"
+
+  BackendTCP - BackendDB
+  Backend - BackendTCP
+}
+
+Backend - HTTP
+
+@enduml

@@ -1,28 +1,52 @@
-\chapter{Product definition}
+\chapter{Product design}
 
-\section{A PWA solution: principles}
+\section{The real-world problem}
+The Romanian national railway operator, CFR S.A. is tasked with the upkeep of 20 thousand kilometers of un-electrified and electrified railway spread out over 9 main lines \cite{CFROrdinMagistrale} \cite{WallstreetRoReorganizareSNCFR}, stretching all across Romania.
 
-The basic idea of this thesis is to merge the mobile app experience and the website experience offered by CFR into a single, PWA solution, that will then be extended to offer live traffic information using phone capabilities such as the camera, location while combining it with map data by OpenStreetMap.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figures/ch3_romania-feroviara.png}
+    \caption{Map of Romania's railway network. Map by Aero Avalon, shared under CC-BY 4.0 \cite{WikipediaRomaniaFeroviara}.}
+    \label{FigRomaniaFeroviara}
+\end{figure}
 
-The application is centered about these core principles:
+The passenger subsidiary, CFR Călători, is the biggest railway operator that makes use of these lines. However, rolling stock is outdated and most train cars lack modern features like driver-controlled doors. A notable absence though is that of live travel information offered inside the train to the passengers. An example of such an information display is given in Figure \ref{FigMAVInterior}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./figures/ch1_mav-interior.png}
+    \caption{Interior of a train owned by MÁV-Start, the Hungarian national passenger operator \cite{PestiHirlapMAVInterior}. The LCD display can be seen at the top, providing information about the next stations, times and delays. Stations and times can be pre-programmed into the train on departure, but delays require live integration with a central service.}
+    \label{FigMAVInterior}
+\end{figure}
+
+Given that retrofitting all rolling stock with displays connected to the Internet is a challenging task, CFR Călători has attempted digitization in various other ways.
+
+In 2016, the company launched IRIS, a web application that provided traffic information about the company's trains. It also offered information about delays \cite{StiriDeClujLansareCFRIris}. In 2018, IRIS got discontinued in favor of a newer platform, written in ASP.NET, which offers information about all railway operators in Romania.
+
+In 2021, the company launched a mobile application with all the capabilities that the website has, making it more convenient than ever before to view traffic information \cite{MobilissimoCFRLansareMobil}.
+
+These solutions, however, are insufficient in answering the question of "Where am I?" that a passenger might have. The most significant issue is that they all require Internet, the lack of which is an issue prevalent across Romanian trains \cite{CFRInternetIC}.
+
+Moreover, CFR does not track the location of their trains using GPS transponders or any similar technology, but rather using personnel that are responsible with coordinating the trains passing through each station. This brings a number of issues:
 
 \begin{itemize}
-    \item \textbf{Offline:} it will work at maximum capability while offline.
-    \item \textbf{Live information:} the screen will update as soon as the app gets new traffic or position information.
-    \item \textbf{Information at a glance:} all information needed to answer the questions of "Where am I?", "How long until next stop?", "How long until my stop?" is always displayed on-screen.
-    \item \textbf{Minimal configuration:} integrate with existing CFR services and ticketing systems as seamlessly as possible.
-    \item \textbf{Avoid "yet another account and password":} allow the user to save their preferences locally, or use social login to sync them. Do not ask the user to remember another password!
+    \item \textbf{Data is not real-time.} A train passing through a station is only recorded when the station personnel manually records that train as passed, in the company's internal services.
+    \item \textbf{Data might be missing.} Some personnel might not take the time to enter delay data for each passing train.
+    \item \textbf{Some stations are not tracked.} Some train stations are big enough to be serviced by regional trains, but not big enough to warrant any personnel responsible with train movement.
+    \item \textbf{Data might be false.} Station personnel can enter any delay data they want, having the possibility of hiding delays.
 \end{itemize}
 
-\section{A PWA solution: requirements}
+\section{Application requirements}
 \label{sec:Requirements}
 
-Given the set of core principles outlined in the previous section, we can compile a list of features that we want our app to have.
+Given the set of real-world issues mentioned above, we can create a set of requirements for an application that tries to plug the information gap and provide a seamless travel experience for the passenger.
+
+The basic idea of this thesis is to merge the mobile app experience and the website experience offered by CFR into a single solution, that will then be extended to offer live traffic information using phone capabilities such as the camera and location.
 
 \begin{enumerate}
     \item Train trip information
           \begin{itemize}
-              \item The app should allow the user to create a new trip. This trip will be considered the "current trip" until the user cancels it. The user will be able to view live information about this trip.
+              \item The app should allow the user to create a new trip. The user will be able to view live information about this trip.
               \item The app should be able to show details about the user's current position in their trip, using information obtained from user (train ticket), train database (itinerary of train) and phone sensors (GPS location).
               \item The live information should include: next stop, last stop, next stop arrival time (timetabled), train delay, next station of pass-through (if applicable).
               \item The live information may also include the destination arrival time (time\-tabled) + train delay.
@@ -48,6 +72,32 @@ Given the set of core principles outlined in the previous section, we can compil
               \item The app must provide multi-language support (Romanian and English).
           \end{itemize}
 \end{enumerate}
+
+\section{Guiding principles}
+
+To maximize user adoption and ease of use, the application should be centered about these core principles:
+
+\begin{itemize}
+    \item \textbf{Offline:} it will work at maximum capability while offline.
+    \item \textbf{Easy to get into:} users should be able to get live tracking as soon as they click a link, and should not have to install apps.
+    \item \textbf{Live information:} the screen will update as soon as the app gets new traffic or position information.
+    \item \textbf{Information at a glance:} all information needed to answer the questions of "Where am I?", "How long until next stop?", "How long until my stop?" is always displayed on-screen.
+    \item \textbf{Minimal configuration:} integrate with existing CFR services and ticketing systems as seamlessly as possible.
+    \item \textbf{Avoid "yet another account and password":} allow the user to save their preferences locally, or use social login to sync them. Do not ask the user to remember another password!
+\end{itemize}
+
+\section{Use case diagram}
+
+We can also design a use case diagram showing the main functionalities of the application and how we intend them to interoperate and operate with the various actors, in Figure \ref{FigUseCase}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{./figures/ch3_use-case.png}
+    \caption{Use case diagram for our CFR Companion application.}
+    \label{FigUseCase}
+\end{figure}
+
+As you can see, even though we employ user accounts, there is little operational difference between users that are logged in, and those who are not. The permission set is the same, what is different is where the user data (trip history) is saved.
 
 \iffalse
     \section{MOMENTARILY DISCARDED: User stories}

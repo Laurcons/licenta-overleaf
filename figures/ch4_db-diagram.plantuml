@@ -1,0 +1,71 @@
+@startuml
+
+left to right direction
+
+database "IndexedDB" {
+  package "mersultrenurilor" {
+    entity "agency" as idbAgency {
+      *agency_id: string
+      --
+      agency_name: string
+      agency_url: string
+      agency_timezone: string
+    }
+    entity "stops" as idbStops {
+      *stop_id: string
+      stop_name: string
+      --
+      stop_lat: number
+      stop_lon: number
+    }
+    entity "routes" as idbRoutes {
+      *route_id: string
+      agency_id: string
+      --
+      route_short_name: string
+      route_long_name: string
+      route_type: number
+    }
+
+    idbAgency }|..|| idbRoutes
+  }
+
+  package "localdatabase" {
+    entity "settings" as idbSettings {
+      *key: string
+      --
+      value: string
+    }
+    entity "userTrips" as idbUserTrips {
+      *id: number
+      --
+      trainNum: string
+      destinationId: string
+      date: Date
+      ticketData: mixed object
+      ticketSerial: string
+    }
+  }
+}
+
+database "MySQL" {
+  package "companion_db" {
+    entity "user" as myUser {
+      *id: int
+      googleId: string
+      appleId: string
+    }
+    entity "userTrip" as myUserTrip {
+      *id: int
+      userId: int
+      --
+      trainNum: string
+      destinationId: string
+      date: Date
+    }
+
+    myUser }|..|| myUserTrip
+  }
+}
+
+@enduml

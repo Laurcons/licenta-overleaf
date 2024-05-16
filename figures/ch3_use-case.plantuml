@@ -1,0 +1,54 @@
+@startuml
+
+left to right direction
+
+actor User
+actor Person <<abstract>>
+actor Guest
+
+User --|> Person
+Guest --|> Person
+
+note as PersonNote
+  A user, logged in or not, is
+  summarized as a "Person". A user
+  and guest have the exact same
+  set of permissions.
+end note
+
+User .. PersonNote
+Guest .. PersonNote
+
+package Authentication {
+  usecase Login as "Login using\nsocial services"
+  usecase Logout as "Log out"
+}
+
+package "Trip management" {
+  usecase CreateTrip as "Create trip using train number"
+  usecase CreateTrip_ScanQR as "Scan ticket QR code\nto get train number"
+  usecase ViewTripHistory as "View history of all created trips"
+
+  CreateTrip <. CreateTrip_ScanQR : <<extends>>
+}
+
+package "Trip live tracking" {
+  usecase TrackTrip_FromHistory as "Reopen tracked trip from history"
+  usecase TrackTrip as "View any tracked trip information"
+  usecase TrackTrip_FromOutside as "Add to history any opened trips\n(own or not own)"
+
+  TrackTrip_FromOutside <. TrackTrip : <<includes>>
+  TrackTrip <. TrackTrip_FromHistory : <<extends>>
+}
+
+Person --> Login
+Person --> Logout
+
+Person --> CreateTrip
+Person --> CreateTrip_ScanQR
+Person --> ViewTripHistory
+
+Person --> TrackTrip
+Person --> TrackTrip_FromHistory
+
+@enduml
