@@ -1,0 +1,16 @@
+\chapter{Conclusions}
+
+This project was an attempt to prove the usefulness and versatility of Web applications that adhere to the Progressive Web App specification. To this end, I think it was successful, and it shows that a Web application can have the same feature set as a native application, including having the ability to be installed and ran offline, without going through the hassle of developing separate applications for different mobile operating systems.
+
+\section{Potential future work}
+The application serves as a useful proof-of-concept of abilities of a PWA application, and it even has potential (in its current form) to be a useful train companion for certain train trips, or for people who travel by train rather rarely.
+
+However, further development opportunities can be identified, some of which are listed below:
+
+\begin{enumerate}
+    \item \textbf{Integrating real-time data as received from CFR's official site.} While real-time data from CFR has been considered in this thesis and has been deemed not accurate enough for real-time location tracking, it could prove useful in grounding the application's estimations into the actual reality of the trip.
+    \item \textbf{Adding more languages.} While English and Romanian cover a significant part of ridership in Romania, it could be useful to add more languages that tend to other European travelers, such as German or French.
+    \item \textbf{Parsing of online tickets.} Online tickets can be purchased for CFR trains and are more convenient than ever before. Although they boast a QR code, the format is not consistent with paper tickets and upon closer inspection does not seem to represent any string data, representing a rather nondescript binary format. However, online tickets come in PDF format, which has potential for different avenues of parsing, in the form of directly looking for text in the PDF file.
+    \item \textbf{Parsing of private operator tickets.} Attempting to decode the tickets of private operators could prove as fruitful as decoding CFR physical tickets... or not, but it is an avenue worth exploring.
+    \item \textbf{User analytics.} Consenting users could be subjected to event tracking, so as to find out the general usage patterns of features, and make data-backed decisions about the application's interface and functionalities.
+\end{enumerate}
