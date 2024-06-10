@@ -1,6 +1,19 @@
 \chapter{Conclusions}
 
-This project was an attempt to prove the usefulness and versatility of Web applications that adhere to the Progressive Web App specification. To this end, I think it was successful, and it shows that a Web application can have the same feature set as a native application, including having the ability to be installed and ran offline, without going through the hassle of developing separate applications for different mobile operating systems.
+This project was an attempt to prove the usefulness and versatility of Web applications that adhere to the Progressive Web App specification, in contrast with native applications and simple Web applications. To this end, I think it was successful, and it shows that a Web application can have the same feature set as a native application, including having the ability to be installed and ran offline, without going through the hassle of developing separate applications for different mobile operating systems.
+
+Moreover, in spite of existing research on the topic of PWAs, and existing examples of PWA applications, this project stands out in the way that it is not a simple showcase of various Web APIs, but rather a complete application with a feature set that can only reach its full potential in the context of a PWA.
+
+\section{Appropriateness of a PWA architecture}
+It is useful to consider, in retrospective, how appropriate the PWA architecture was to this project and its requirements.
+
+If this project had been developed as a normal website, it would have been very easy to access, and a first-time user can get from searching for the app to tracking a train in a very short time. Making the application PWA-compliant would take some time and resources from the app development (in the form of PWA plugin configuration, but also handling of offline scenarios), time which could be used to add more features. However, a website is very ill-suited for the purposes of a trip companion, since it would require a constant Internet connection to make use of trip data.
+
+If this project had been developed as a native application, it would have required separate development processes, one dedicated for iOS and one for Android, in order to have an effective user base that is similar to a website's. It would also require passing through application marketplaces review processes, which, as we have seen, for iOS can be problematic. Although users will be required to download and install the app, which is not a trivial thing to do, users might already expect this and be patient throughout the process. Once installed, the application is now ready to be used in any network conditions. The programmer might find that updating the application can be somewhat hard, since some users might be unwilling to update their applications if it is too inconvenient.
+
+Making the application PWA compliant seems to have resolved the biggest issues from either of the above approaches. Developing for multiple platforms, marketplace approval, or timely updates are not a concern, while the application works under any network conditions.
+
+Therefore, the choice of a PWA architecture is justified.
 
 \section{Potential future work}
 The application serves as a useful proof-of-concept of abilities of a PWA application, and it even has potential (in its current form) to be a useful train companion for certain train trips, or for people who travel by train rather rarely.
